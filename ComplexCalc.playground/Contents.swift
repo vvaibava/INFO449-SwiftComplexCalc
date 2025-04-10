@@ -28,6 +28,75 @@ print("Welcome back to the UW Calculator")
 //: IMPORTANT: If any tests are commented out, you will be graded a zero (0)! You should never be in the habit of eliminating tests to make the code pass.
 //:
 class Calculator {
+    func add(lhs: Int, rhs: Int) -> Int{
+        return lhs + rhs
+    }
+    func add(_ nums: [Int]) -> Int{
+        var sum = 0
+        for i in 0..<nums.count{
+            sum += nums[i]
+        }
+        return sum
+    }
+    func add(lhs: (Int,Int), rhs:(Int, Int)) -> (Int, Int){
+        return (lhs.0 + rhs.0, lhs.1 + rhs.1)
+    }
+    
+    func add(lhs: [String:Int], rhs: [String:Int]) -> [String:Int] {
+        var x = (lhs["x"] ?? 0) + (rhs["x"] ?? 0)
+        var y = (lhs["y"] ?? 0) + (rhs["y"] ?? 0)
+        return ["x":x, "y": y]
+    }
+    
+    func subtract(lhs: Int, rhs: Int) -> Int{
+        return lhs - rhs
+    }
+    
+    func subtract(lhs: (Int,Int), rhs:(Int, Int)) -> (Int, Int){
+        return (lhs.0 - rhs.0, lhs.1 - rhs.1)
+    }
+    
+    func subtract(lhs: [String:Int], rhs: [String:Int]) -> [String: Int]{
+        var x = (lhs["x"] ?? 0) - (rhs["x"] ?? 0)
+        var y = (lhs["y"] ?? 0) - (rhs["y"] ?? 0)
+        return ["x":x, "y": y]
+    }
+    
+    func multiply(lhs: Int, rhs: Int) -> Int{
+        return lhs * rhs
+    }
+    
+    func multiply(_ nums: [Int]) -> Int{
+        var prod = 1
+        for i in 0 ..< nums.count{
+            prod *= nums[i]
+        }
+        return prod
+    }
+    
+    func divide(lhs: Int, rhs: Int) -> Int{
+        return lhs / rhs
+    }
+    
+    func count(_ list: [Int]) -> Int{
+        return list.count
+    }
+    
+    func avg(_ list: [Int]) -> Int{
+        return self.add(list)/list.count
+    }
+    
+    func mathOp(lhs : Int, rhs : Int, op : (Int, Int) -> Int) -> Int {
+        return op(lhs, rhs)
+    }
+    
+    func mathOp(args: [Int], beg: Int, op : (Int, Int) -> Int) -> Int {
+        var res = beg
+        for i in args{
+            res = op(res, i)
+        }
+        return res
+    }
 }
 
 //: Don't change the name of this object (`calc`); it's used in all the tests.
@@ -52,7 +121,7 @@ calc.subtract(lhs: 2, rhs: 2) == 0
 calc.multiply(lhs: 2, rhs: 2) == 4
 calc.divide(lhs: 2, rhs: 2) == 1
 
-calc.mathOp(lhs: 5, rhs: 5, op: { (lhs: Int, rhs: Int) -> Int in (lhs + rjs) + (lhs * rhs) }) == 35
+calc.mathOp(lhs: 5, rhs: 5, op: { (lhs: Int, rhs: Int) -> Int in (lhs + rhs) + (lhs * rhs) }) == 35
     // This style is one way of writing an anonymous function
 calc.mathOp(lhs: 10, rhs: -5, op: { ($0 + $1) + ($0 - $1) }) == 20
     // This is the second, more terse, style; either works
